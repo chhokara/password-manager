@@ -18,6 +18,19 @@ def add_data():
 
     return 'Done', 201
 
+@main.route('/delete')  # delete table entries
+def delete(id_):
+    deleted = Data.query.filter_by(id=id_).first()  # save the item we want to delete
+    db.session.delete(deleted)  # choose the saved item to be deleted
+    db.session.commit()
+    return "Deleted!"
+
+@main.route('/update')
+def update(id_):
+    get_id = db.session.query(data).get(id_)
+
+
+
 @main.route('/display_data')  # display all the websites and passwords
 def display_data():
     data_list = Data.query.all()  # get all the passwords and websites
