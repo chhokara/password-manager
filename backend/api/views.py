@@ -9,15 +9,11 @@ main = Blueprint('main', __name__)
 @main.route('/add_data', methods=['POST'])  # add website and password
 def add_data():
     response = request.get_json()  # becomes a dict
-
     # create new data object from models.py
-
     new_data = Data(website=response['website'], password=response['password'])
-
     # add this new password and website to the database
     db.session.add(new_data)
     db.session.commit()  # commit changes
-
     return 'Done', 201
 
 
@@ -31,9 +27,14 @@ def delete(id_):
     return "Deleted!"
 
 
-@main.route('/update')
-def update(id_):
-    get_id = db.session.query(data).get(id_)
+@main.route('/update', methods=['PUT'])
+def update(old_website, new_website, old_password, new_password):
+    Data.query.filter_by(website=old_website).update(
+        {Data.website: new_website})  # find website and change to new one
+    Data.query.filter_by(password=old_password).update(
+        {Data.password: new_password})  # find password and change to new one
+    db.session.commit()
+    return "Updated!"
 
 
 @main.route('/display_data')  # display all the websites and passwords
