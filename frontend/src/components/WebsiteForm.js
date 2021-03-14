@@ -15,13 +15,13 @@ export const WebsiteForm = () => {
             <Input placeholder="Password"></Input>
           </Form.Field>
         </Form>
-        <Button primary style={{ margin: "5px" }}>
+        <Button primary style={{ margin: "0 50px 0 50px" }}>
           Add
         </Button>
-        <Button secondary style={{ margin: "5px" }}>
+        <Button secondary style={{ margin: "0 50px 0 50px" }}>
           Update
         </Button>
-        <Button style={{ margin: "5px" }}>Delete</Button>
+        <Button style={{ margin: "0 50px 0 50px" }}>Delete</Button>
       </Card.Content>
     </Card>
   );
