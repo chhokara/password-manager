@@ -1,22 +1,16 @@
 import React from "react";
 import { List, Card } from "semantic-ui-react";
 
-export const Websites = () => {
-  const websites = [
-    { name: "LinkedIn", password: "chhokara" },
-    { name: "Facebook", password: "arshdeep" },
-    { name: "Youtube", password: "starbz" },
-    { name: "Youtube", password: "starbz" },
-    { name: "Youtube", password: "starbz" },
-    { name: "Youtube", password: "starbz" },
-    { name: "Youtube", password: "starbz" },
-  ];
+export const Websites = ({ sites, setId }) => {
   return (
     <List>
-      {websites.map((website, i) => {
-        console.log(i);
+      {sites.map((website, i) => {
         return (
-          <List.Item style={{ marginTop: "30px" }} key={i}>
+          <List.Item
+            style={{ marginTop: "30px" }}
+            key={i + 1}
+            onClick={(e) => setId(i + 1)}
+          >
             <Card
               style={{
                 backgroundColor: "#f7f7f7",
@@ -25,7 +19,7 @@ export const Websites = () => {
               fluid
             >
               <Card.Content>
-                <Card.Header content={website.name} />
+                <Card.Header content={website.website} />
                 <Card.Description content={`Password: ${website.password}`} />
               </Card.Content>
             </Card>
