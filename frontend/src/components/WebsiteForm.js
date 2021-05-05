@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Form, Card, Input, Button } from "semantic-ui-react";
 
-export const WebsiteForm = ({ onNewWebsite, id }) => {
+export const WebsiteForm = ({ onNewWebsite, onDeleteWebsite, id }) => {
   const [website, setSite] = useState("");
   const [password, setPassword] = useState("");
-  console.log(id);
   return (
     <Card style={{ marginTop: "30px", backgroundColor: "#f7f7f7" }} fluid>
       <Card.Content>
@@ -53,14 +52,18 @@ export const WebsiteForm = ({ onNewWebsite, id }) => {
         </Button>
         <Button
           style={{ margin: "5px 50px 5px 50px" }}
-          // onClick={async () => {
-          //   await fetch(`/delete/${id}`, {
-          //     method: "DELETE",
-          //     headers: {
-          //       "Content-Type": "application/json",
-          //     },
-          //   });
-          // }}
+          onClick={async () => {
+            console.log(id);
+            const response = await fetch(`/delete/${id}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            if (response.ok) {
+              onDeleteWebsite(id);
+            }
+          }}
         >
           Delete
         </Button>

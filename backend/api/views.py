@@ -1,9 +1,13 @@
-
 from flask import Blueprint, jsonify, request
 from . import db
 from .models import Data  # import password and website data
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 main = Blueprint('main', __name__)
+
+some_engine = create_engine('sqlite:///database.db')
+Session = sessionmaker(bind=some_engine)
 
 
 @main.route('/add_data', methods=['POST'])  # add website and password
@@ -20,8 +24,10 @@ def add_data():
 @main.route('/delete/<id_>', methods=["DELETE"])  # delete table entries
 def delete(id_):
     _id = int(id_)
+    ids = Data.query.with_entities(Data.id).all()
+    i = int(ids[_id][0])
     # save the item we want to delete
-    deleted = Data.query.filter_by(id=_id).first()
+    deleted = Data.query.filter_by(id=i).first()
     db.session.delete(deleted)  # choose the saved item to be deleted
     db.session.commit()
     return "Deleted!"

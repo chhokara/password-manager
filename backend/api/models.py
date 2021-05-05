@@ -1,4 +1,5 @@
-from . import db 
+from . import db
+
 
 class Data(db.Model):  # data for websites and passwords
     id = db.Column(db.Integer, primary_key=True)

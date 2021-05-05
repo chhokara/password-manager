@@ -23,6 +23,14 @@ function App() {
             setWebsites((currentWebsites) => [...currentWebsites, website])
           }
           id={id}
+          onDeleteWebsite={(websiteId) => {
+            setWebsites((currentWebsites) => {
+              let newWebsites = currentWebsites.filter(
+                (website, i) => websiteId !== i
+              );
+              return [...newWebsites];
+            });
+          }}
         />
       </Container>
       <Container style={{ width: "40%" }}>

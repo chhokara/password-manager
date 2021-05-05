@@ -8,8 +8,8 @@ export const Websites = ({ sites, setId }) => {
         return (
           <List.Item
             style={{ marginTop: "30px" }}
-            key={i + 1}
-            onClick={(e) => setId(i + 1)}
+            key={i}
+            onClick={(e) => setId(i)}
           >
             <Card
               style={{
