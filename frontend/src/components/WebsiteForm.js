@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Card, Input, Button } from "semantic-ui-react";
 
-export const WebsiteForm = ({ onNewWebsite, onDeleteWebsite, id }) => {
-  const [website, setSite] = useState("");
-  const [password, setPassword] = useState("");
+export const WebsiteForm = ({
+  setOldPassword,
+  setOldWebsite,
+  oldWebsite,
+  oldPassword,
+  onNewWebsite,
+  onDeleteWebsite,
+  id,
+}) => {
+  const [website, setSite] = useState(oldWebsite);
+  const [password, setPassword] = useState(oldPassword);
+
+  useEffect(() => {
+    setSite(oldWebsite);
+    setPassword(oldPassword);
+  }, [oldPassword, oldWebsite]);
   return (
     <Card style={{ marginTop: "30px", backgroundColor: "#f7f7f7" }} fluid>
       <Card.Content>
@@ -42,6 +55,8 @@ export const WebsiteForm = ({ onNewWebsite, onDeleteWebsite, id }) => {
               onNewWebsite(site);
               setSite("");
               setPassword("");
+              setOldPassword("");
+              setOldWebsite("");
             }
           }}
         >
@@ -62,6 +77,10 @@ export const WebsiteForm = ({ onNewWebsite, onDeleteWebsite, id }) => {
             });
             if (response.ok) {
               onDeleteWebsite(id);
+              setSite("");
+              setPassword("");
+              setOldPassword("");
+              setOldWebsite("");
             }
           }}
         >

@@ -1,7 +1,7 @@
 import React from "react";
 import { List, Card } from "semantic-ui-react";
 
-export const Websites = ({ sites, setId }) => {
+export const Websites = ({ sites, setId, setOldPassword, setOldWebsite }) => {
   return (
     <List>
       {sites.map((website, i) => {
@@ -9,7 +9,11 @@ export const Websites = ({ sites, setId }) => {
           <List.Item
             style={{ marginTop: "30px" }}
             key={i}
-            onClick={(e) => setId(i)}
+            onClick={(e) => {
+              setId(i);
+              setOldPassword(website.password);
+              setOldWebsite(website.website);
+            }}
           >
             <Card
               style={{

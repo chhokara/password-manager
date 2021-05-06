@@ -34,11 +34,12 @@ def delete(id_):
 
 
 @main.route('/update', methods=['PUT'])
-def update(old_website, new_website, old_password, new_password):
-    Data.query.filter_by(website=old_website).update(
-        {Data.website: new_website})  # find website and change to new one
-    Data.query.filter_by(password=old_password).update(
-        {Data.password: new_password})  # find password and change to new one
+def update():
+    response = request.get_json()
+    Data.query.filter_by(website=response['old_website']).update(
+        {Data.website: response['new_website']})  # find website and change to new one
+    Data.query.filter_by(password=response['old_password']).update(
+        {Data.password: response['new_password']})  # find password and change to new one
     db.session.commit()
     return "Updated!"
 
