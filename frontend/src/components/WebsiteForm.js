@@ -12,10 +12,14 @@ export const WebsiteForm = ({
 }) => {
   const [website, setSite] = useState(oldWebsite);
   const [password, setPassword] = useState(oldPassword);
+  const [newPassword, setNewPassword] = useState(oldPassword);
+  const [newWebsite, setNewWebsite] = useState(oldWebsite);
 
   useEffect(() => {
     setSite(oldWebsite);
     setPassword(oldPassword);
+    setNewPassword(oldPassword);
+    setNewWebsite(oldWebsite);
   }, [oldPassword, oldWebsite]);
   return (
     <Card style={{ marginTop: "30px", backgroundColor: "#f7f7f7" }} fluid>
@@ -25,7 +29,13 @@ export const WebsiteForm = ({
             <Input
               placeholder="Website"
               value={website}
-              onChange={(e) => setSite(e.target.value)}
+              onChange={(e) => {
+                setSite(e.target.value);
+                if (oldWebsite) {
+                  setNewWebsite(e.target.value);
+                  console.log(e.target.value);
+                }
+              }}
             ></Input>
           </Form.Field>
         </Form>
@@ -34,7 +44,13 @@ export const WebsiteForm = ({
             <Input
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (oldPassword) {
+                  setNewPassword(e.target.value);
+                  console.log(e.target.value);
+                }
+              }}
             ></Input>
           </Form.Field>
         </Form>
@@ -62,7 +78,32 @@ export const WebsiteForm = ({
         >
           Add
         </Button>
-        <Button secondary style={{ margin: "5px 50px 5px 50px" }}>
+        <Button
+          secondary
+          style={{ margin: "5px 50px 5px 50px" }}
+          onClick={async () => {
+            const req = {
+              old_website: oldWebsite,
+              new_website: newWebsite,
+              old_password: oldPassword,
+              new_password: newPassword,
+            };
+            const response = await fetch("/update", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(req),
+            });
+
+            if (response.ok) {
+              setSite("");
+              setPassword("");
+              setOldPassword("");
+              setOldWebsite("");
+            }
+          }}
+        >
           Update
         </Button>
         <Button
