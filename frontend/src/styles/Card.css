@@ -1,0 +1,6 @@
+.card-item:hover {
+  cursor: pointer;
+}
+.card-item {
+  margin-top: 30px;
+}

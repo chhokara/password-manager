@@ -1,5 +1,6 @@
 import React from "react";
 import { List, Card } from "semantic-ui-react";
+import "../styles/Card.css";
 
 export const Websites = ({ sites, setId, setOldPassword, setOldWebsite }) => {
   return (
@@ -7,7 +8,7 @@ export const Websites = ({ sites, setId, setOldPassword, setOldWebsite }) => {
       {sites.map((website, i) => {
         return (
           <List.Item
-            style={{ marginTop: "30px" }}
+            className="card-item"
             key={i}
             onClick={(e) => {
               setId(i);
@@ -16,9 +17,10 @@ export const Websites = ({ sites, setId, setOldPassword, setOldWebsite }) => {
             }}
           >
             <Card
+              className="card"
               style={{
                 backgroundColor: "#f7f7f7",
-                boxShadow: "5px 5px lightgrey",
+                boxShadow: "0px 5px 5px lightgrey",
               }}
               fluid
             >
