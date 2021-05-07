@@ -8,6 +8,7 @@ export const WebsiteForm = ({
   oldPassword,
   onNewWebsite,
   onDeleteWebsite,
+  onUpdate,
   id,
 }) => {
   const [website, setSite] = useState(oldWebsite);
@@ -83,12 +84,10 @@ export const WebsiteForm = ({
           style={{ margin: "5px 50px 5px 50px" }}
           onClick={async () => {
             const req = {
-              old_website: oldWebsite,
               new_website: newWebsite,
-              old_password: oldPassword,
               new_password: newPassword,
             };
-            const response = await fetch("/update", {
+            const response = await fetch(`/update/${id}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -97,6 +96,7 @@ export const WebsiteForm = ({
             });
 
             if (response.ok) {
+              onUpdate(newWebsite, newPassword);
               setSite("");
               setPassword("");
               setOldPassword("");

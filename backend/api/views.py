@@ -33,12 +33,16 @@ def delete(id_):
     return "Deleted!"
 
 
-@main.route('/update', methods=['PUT'])
-def update():
+@main.route('/update/<id_>', methods=['PUT'])
+def update(id_):
+    _id = int(id_)
+    ids = Data.query.with_entities(Data.id).all()
+    i = int(ids[_id][0])
+
     response = request.get_json()
-    Data.query.filter_by(website=response['old_website']).update(
+    Data.query.filter_by(id=i).update(
         {Data.website: response['new_website']})  # find website and change to new one
-    Data.query.filter_by(password=response['old_password']).update(
+    Data.query.filter_by(id=i).update(
         {Data.password: response['new_password']})  # find password and change to new one
     db.session.commit()
     return "Updated!"

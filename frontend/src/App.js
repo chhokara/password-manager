@@ -37,6 +37,19 @@ function App() {
               return [...newWebsites];
             });
           }}
+          onUpdate={(newWebsite, newPassword) => {
+            setWebsites((currentWebsites) => {
+              let newWebsites = currentWebsites.map((website, i) => {
+                if (i === id) {
+                  website.website = newWebsite;
+                  website.password = newPassword;
+                  return website;
+                }
+                return website;
+              });
+              return newWebsites;
+            });
+          }}
         />
       </Container>
       <Container style={{ width: "40%" }}>
